@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSum.setOnClickListener(this);
         btnLess.setOnClickListener(this);
         btnMult.setOnClickListener(this);
+        btnCE.setOnClickListener(this);
+        btnEqual.setOnClickListener(this);
 
     }
 
@@ -88,24 +90,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 txtResult.setText(result);
                 break;
             case R.id.txtSum:
-                action = 1;
                 if (oper1==0) {
                     oper1 = Integer.parseInt(txtResult.getText().toString());
                     txtResult.setText("");
+                    action = 1;
                 }else {
-                    int res = oper1 + Integer.parseInt(txtResult.getText().toString());
-                    txtResult.setText(res + "");
-                    oper1 = res;
+                    oper1 = operation();
+                    txtResult.setText(oper1 + "");
+                    action = 1;
+                }
+                break;
+            case R.id.txtLess:
+                if (oper1==0) {
+                    oper1 = Integer.parseInt(txtResult.getText().toString());
+                    txtResult.setText("");
+                    action = 2;
+                }else {
+                    oper1 = operation();
+                    txtResult.setText(oper1 + "");
+                    action = 2;
+                }
+
+                break;
+            case R.id.txtMult:
+                if (oper1==0) {
+                    oper1 = Integer.parseInt(txtResult.getText().toString());
+                    txtResult.setText("");
+                    action = 3;
+                }else {
+                    oper1 = operation();
+                    txtResult.setText(oper1 + "");
+                    action = 3;
                 }
                 break;
             case R.id.txtEqual:
-
+                oper1 = operation();
+                txtResult.setText(oper1 + "");
+                action =0;
                 break;
             case R.id.txtCE:
                 oper1 =0;
+                action=0;
                 txtResult.setText("");
                 break;
         }
 
+    }
+
+    public int operation(){
+        int a = Integer.parseInt(txtResult.getText().toString());
+        int res = 0;
+        if (action == 1)
+            res = oper1 + a;
+        if (action == 2)
+            res = oper1 - a;
+        if (action == 3)
+            res = oper1 * a;
+        if (action == 0)
+            res = a;
+        return res;
     }
 }
